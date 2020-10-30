@@ -87,10 +87,10 @@ window.addEventListener("load", function (event) {
 
   var update = function () {
 
-    if (controller.left.active) { game.world.player.moveLeft(); }
-    if (controller.right.active) { game.world.player.moveRight(); }
-    if (controller.up.active) { game.world.player.moveUp(); }
-    if (controller.down.active) { game.world.player.moveDown(); }
+    if (controller.left.active) { game.world.player.moveLeft(); controller.left.active = false; }
+    if (controller.right.active) { game.world.player.moveRight(); controller.right.active = false; }
+    if (controller.up.active) { game.world.player.moveUp(); controller.up.active = false; }
+    if (controller.down.active) { game.world.player.moveDown(); controller.down.active = false; }
 
     game.update();
 

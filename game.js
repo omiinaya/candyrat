@@ -322,7 +322,7 @@ Game.Door.prototype.constructor = Game.Door;
 Game.Player = function (x, y) {
 
   //set width and height of the player.
-  Game.MovingObject.call(this, x, y, 15.5, 15.5);
+  Game.MovingObject.call(this, x, y, 13, 13);
 
   Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
 
@@ -349,23 +349,26 @@ Game.Player.prototype = {
 
   moveUp: function () {
     this.direction_y = 1;
-    this.velocity_y -= 0.80;
+    this.velocity_y = -1;
+    this.velocity_x = 0;
   },
 
   moveDown: function () {
     this.direction_y = -1;
-    this.velocity_y += 0.80;
+    this.velocity_y = 1;
+    this.velocity_x = 0;
   },
 
   moveLeft: function () {
     this.direction_x = -1;
-    this.velocity_x -= 0.80;
-
+    this.velocity_x = -1;
+    this.velocity_y = 0;
   },
   
   moveRight: function () {
     this.direction_x = 1;
-    this.velocity_x += 0.80;
+    this.velocity_x = 1;
+    this.velocity_y = 0;
   },
 
   updateAnimation: function () {
