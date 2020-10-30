@@ -239,14 +239,14 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
 
   Game.Object.call(this, x, y, width, height);
 
-  this.velocity_max = velocity_max;// added velocity_max so velocity can't go past 16
+  this.velocity_max = velocity_max;
   this.velocity_x = 0;
   this.velocity_y = 0;
   this.x_old = x;
   this.y_old = y;
 
 };
-/* I added setCenterX, setCenterY, getCenterX, and getCenterY */
+
 Game.MovingObject.prototype = {
 
   getOldBottom: function () { return this.y_old + this.height; },
@@ -263,6 +263,7 @@ Game.MovingObject.prototype = {
   setOldTop: function (y) { this.y_old = y; }
 
 };
+
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
@@ -279,10 +280,11 @@ Game.Carrot = function (x, y) {
   the floating effect. */
   this.base_x = x;
   this.base_y = y;
-  this.position_x = Math.random() * Math.PI * 2;
+  this.position_x = Math.random() * Math.PI * 2; //randomizes left and right movement
   this.position_y = this.position_x * 2;
 
 };
+
 Game.Carrot.prototype = {
 
   frame_sets: { "twirl": [12, 13] },
@@ -298,6 +300,7 @@ Game.Carrot.prototype = {
   }
 
 };
+
 Object.assign(Game.Carrot.prototype, Game.Animator.prototype);
 Object.assign(Game.Carrot.prototype, Game.Object.prototype);
 Game.Carrot.prototype.constructor = Game.Carrot;
@@ -311,6 +314,7 @@ Game.Door = function (door) {
   this.destination_zone = door.destination_zone;
 
 };
+
 Game.Door.prototype = {};
 Object.assign(Game.Door.prototype, Game.Object.prototype);
 Game.Door.prototype.constructor = Game.Door;
@@ -357,6 +361,7 @@ Game.Player.prototype = {
     this.velocity_x -= 0.80;
 
   },
+  
   moveRight: function () {
     this.direction_x = 1;
     this.velocity_x += 0.80;
