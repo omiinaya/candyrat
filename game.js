@@ -1,16 +1,3 @@
-//global vars
-var currentPlayer;
-var currentWorld;
-
-//global functions
-function getWorld() {
-  console.log(currentWorld);
-}
-
-function getPlayer() {
-  return currentPlayer;
-}
-
 //classes
 const Game = function () {
 
@@ -23,9 +10,9 @@ const Game = function () {
   };
 
 };
+
 Game.prototype = { constructor: Game };
 
-// Made the default animation type "loop":
 Game.Animator = function (frame_set, delay, mode = "loop") {
 
   this.count = 0;
@@ -83,43 +70,61 @@ Game.Animator.prototype = {
 };
 
 Game.Collider = function () {
-
-  /* I changed this so all the checks happen in y first order. */
   this.collide = function (value, object, tile_x, tile_y, tile_size) {
-
     switch (value) {
 
-      case 1: this.collidePlatformTop(object, tile_y); break;
-      case 2: this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 3: if (this.collidePlatformTop(object, tile_y)) return;
+      case 1:
+        this.collidePlatformTop(object, tile_y); break;
+      case 2:
         this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 4: this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 5: if (this.collidePlatformTop(object, tile_y)) return;
+      case 3:  if (
+        this.collidePlatformTop(object, tile_y)) return;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 4:
         this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 6: if (this.collidePlatformRight(object, tile_x + tile_size)) return;
+      case 5:  if (
+        this.collidePlatformTop(object, tile_y)) return;
         this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 7: if (this.collidePlatformTop(object, tile_y)) return;
-        if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
+      case 6:  if (
+        this.collidePlatformRight(object, tile_x + tile_size)) return;
+        this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 7:  if (
+        this.collidePlatformTop(object, tile_y)) return;
+               if (
+        this.collidePlatformBottom(object, tile_y + tile_size)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 8: this.collidePlatformLeft(object, tile_x); break;
-      case 9: if (this.collidePlatformTop(object, tile_y)) return;
+      case 8: 
         this.collidePlatformLeft(object, tile_x); break;
-      case 10: if (this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 11: if (this.collidePlatformTop(object, tile_y)) return;
-        if (this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 12: if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
+      case 9:  if (
+        this.collidePlatformTop(object, tile_y)) return;
         this.collidePlatformLeft(object, tile_x); break;
-      case 13: if (this.collidePlatformTop(object, tile_y)) return;
-        if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformLeft(object, tile_x); break;
-      case 14: if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        if (this.collidePlatformLeft(object, tile_x)) return;
+      case 10: if (
+        this.collidePlatformLeft(object, tile_x)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 15: if (this.collidePlatformTop(object, tile_y)) return;
-        if (this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        if (this.collidePlatformLeft(object, tile_x)) return;
+      case 11: if (
+        this.collidePlatformTop(object, tile_y)) return;
+               if (
+        this.collidePlatformLeft(object, tile_x)) return;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 12: if (
+        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        this.collidePlatformLeft(object, tile_x); break;
+      case 13: if (
+        this.collidePlatformTop(object, tile_y)) return;
+               if (
+                 this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        this.collidePlatformLeft(object, tile_x); break;
+      case 14: if (
+        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+               if (
+        this.collidePlatformLeft(object, tile_x)) return;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 15: if (
+        this.collidePlatformTop(object, tile_y)) return;
+               if (
+        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+               if (
+        this.collidePlatformLeft(object, tile_x)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
 
     }
@@ -132,57 +137,43 @@ Game.Collider.prototype = {
   constructor: Game.Collider,
 
   collidePlatformBottom: function (object, tile_bottom) {
-
     if (object.getTop() < tile_bottom && object.getOldTop() >= tile_bottom) {
-
       object.setTop(tile_bottom);
       object.velocity_y = 0;
       return true;
-
-    } return false;
-
+    } 
+    return false;
   },
 
   collidePlatformLeft: function (object, tile_left) {
-
     if (object.getRight() > tile_left && object.getOldRight() <= tile_left) {
-
       object.setRight(tile_left - 0.01);
       object.velocity_x = 0;
       return true;
-
-    } return false;
-
+    } 
+    return false;
   },
 
   collidePlatformRight: function (object, tile_right) {
-
     if (object.getLeft() < tile_right && object.getOldLeft() >= tile_right) {
-
       object.setLeft(tile_right);
       object.velocity_x = 0;
       return true;
-
-    } return false;
-
+    } 
+    return false;
   },
 
   collidePlatformTop: function (object, tile_top) {
-
     if (object.getBottom() > tile_top && object.getOldBottom() <= tile_top) {
-
       object.setBottom(tile_top - 0.01);
       object.velocity_y = 0;
       object.jumping = false;
       return true;
-
-    } return false;
-
+    } 
+    return false;
   }
-
 };
 
-// Added default values of 0 for offset_x and offset_y
 Game.Frame = function (x, y, width, height, offset_x = 0, offset_y = 0) {
 
   this.x = x;
@@ -193,6 +184,7 @@ Game.Frame = function (x, y, width, height, offset_x = 0, offset_y = 0) {
   this.offset_y = offset_y;
 
 };
+
 Game.Frame.prototype = { constructor: Game.Frame };
 
 Game.Object = function (x, y, width, height) {
@@ -203,33 +195,30 @@ Game.Object = function (x, y, width, height) {
   this.y = y;
 
 };
+
 Game.Object.prototype = {
 
   constructor: Game.Object,
 
-  /* Now does rectangular collision detection. */
   collideObject: function (object) {
 
     if (this.getRight() < object.getLeft() ||
-      this.getBottom() < object.getTop() ||
-      this.getLeft() > object.getRight() ||
-      this.getTop() > object.getBottom()) return false;
-
+        this.getBottom() < object.getTop() ||
+        this.getLeft() > object.getRight() ||
+        this.getTop() > object.getBottom()) { 
+          return false; 
+        }
     return true;
-
   },
 
-  /* Does rectangular collision detection with the center of the object. */
   collideObjectCenter: function (object) {
-
     let center_x = object.getCenterX();
     let center_y = object.getCenterY();
-
     if (center_x < this.getLeft() || center_x > this.getRight() ||
-      center_y < this.getTop() || center_y > this.getBottom()) return false;
-
+      center_y < this.getTop() || center_y > this.getBottom()) {
+        return false;
+      }
     return true;
-
   },
 
   getBottom: function () { return this.y + this.height; },
@@ -251,8 +240,6 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
 
   Game.Object.call(this, x, y, width, height);
 
-  this.dashing = false;
-  this.jumping = false;
   this.velocity_max = velocity_max;// added velocity_max so velocity can't go past 16
   this.velocity_x = 0;
   this.velocity_y = 0;
@@ -375,75 +362,29 @@ Game.Player.prototype = {
 
   },
 
-  //a = abilities, ms = time in milliseconds.
-  cooldown: function (a, ms) {
-    var player = this;
-    player[a] = true;
-    if (player[a] == true) {
-      setTimeout(function () {
-        player[a] = false;
-      }, ms);
-    }
+  moveUp: function () {
+    this.direction_y = 1;
+    this.velocity_y -= 0.55;
   },
 
-  dash: function () {
-    if (this.dashing == false) {
-
-      //if facing right...
-      if (this.direction_x == 1) {
-        this.velocity_x += 15;
-      } 
-      //if not facing right... in other words, if facing left...
-      else {
-        this.velocity_x -= 15;
-      }
-
-      this.cooldown('dashing', 1000)
-    }
-  },
-
-  jump: function () {
-
-    /* Made it so you can only jump if you aren't falling faster than 10px per frame. */
-    if (!this.jumping && this.velocity_y < 10) {
-
-      this.jumping = true;
-      this.velocity_y -= 5.5;
-      console.log(this.y);
-
-    }
-
-  },
-
-  blink: function () {
-    if (!this.dashing) {
-      this.dashing = true;
-      this.x += 15;
-    }
+  moveDown: function () {
+    this.direction_y = -1;
+    this.velocity_y += 0.55;
   },
 
   moveLeft: function () {
-
     this.direction_x = -1;
     this.velocity_x -= 0.55;
 
   },
-
   moveRight: function () {
-
     this.direction_x = 1;
     this.velocity_x += 0.55;
-
   },
 
   updateAnimation: function () {
 
-    if (this.velocity_y < 0) {
-
-      if (this.direction_x < 0) this.changeFrameSet(this.frame_sets["jump-left"], "pause");
-      else this.changeFrameSet(this.frame_sets["jump-right"], "pause");
-
-    } else if (this.direction_x < 0) {
+      if (this.direction_x < 0) {
 
       if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
       else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
@@ -459,12 +400,12 @@ Game.Player.prototype = {
 
   },
 
-  updatePosition: function (gravity, friction) {
+  updatePosition: function (friction) {
 
     this.x_old = this.x;
     this.y_old = this.y;
 
-    this.velocity_y += gravity;
+    this.velocity_y *= friction;
     this.velocity_x *= friction;
 
     /* Made it so that velocity cannot exceed velocity_max */
@@ -506,12 +447,11 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-Game.World = function (friction = 0.68, gravity = 0.4) {
+Game.World = function (friction = 0.68) {
 
   this.collider = new Game.Collider();
 
   this.friction = friction;
-  this.gravity = gravity;
 
   this.columns = 12;
   this.rows = 9;
@@ -621,9 +561,7 @@ Game.World.prototype = {
 
   update: function () {
 
-    //console.log(this.player.x);
-
-    this.player.updatePosition(this.gravity, this.friction);
+    this.player.updatePosition(this.friction);
 
     this.collideObject(this.player);
 
