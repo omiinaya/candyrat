@@ -345,22 +345,22 @@ Game.Player.prototype = {
 
   moveUp: function () {
     this.direction_y = 1;
-    this.velocity_y -= 0.55;
+    this.velocity_y -= 0.80;
   },
 
   moveDown: function () {
     this.direction_y = -1;
-    this.velocity_y += 0.55;
+    this.velocity_y += 0.80;
   },
 
   moveLeft: function () {
     this.direction_x = -1;
-    this.velocity_x -= 0.55;
+    this.velocity_x -= 0.80;
 
   },
   moveRight: function () {
     this.direction_x = 1;
-    this.velocity_x += 0.55;
+    this.velocity_x += 0.80;
   },
 
   updateAnimation: function () {
