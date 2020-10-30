@@ -433,7 +433,7 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-Game.World = function (friction = 0.70) {
+Game.World = function (friction = 1) {
 
   this.collider = new Game.Collider();
 
