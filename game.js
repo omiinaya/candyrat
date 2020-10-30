@@ -322,7 +322,7 @@ Game.Door.prototype.constructor = Game.Door;
 Game.Player = function (x, y) {
 
   //set width and height of the player.
-  Game.MovingObject.call(this, x, y, 15, 15);
+  Game.MovingObject.call(this, x, y, 15.5, 15.5);
 
   Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
 
@@ -444,7 +444,7 @@ Game.World = function (friction = 0.70) {
 
   //8 columns, size 16
   this.tile_set = new Game.TileSet(8, 16);
-  this.player = new Game.Player(32, 116);
+  this.player = new Game.Player(32, 112);
 
   this.zone_id = "00";
 
