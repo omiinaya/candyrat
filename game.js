@@ -303,25 +303,6 @@ Object.assign(Game.Carrot.prototype, Game.Animator.prototype);
 Object.assign(Game.Carrot.prototype, Game.Object.prototype);
 Game.Carrot.prototype.constructor = Game.Carrot;
 
-Game.Grass = function (x, y) {
-
-  Game.Animator.call(this, Game.Grass.prototype.frame_sets["wave"], 25);
-
-  this.x = x;
-  this.y = y;
-
-};
-Game.Grass.prototype = {
-
-  frame_sets: {
-
-    "wave": [14, 15, 16, 15]
-
-  }
-
-};
-Object.assign(Game.Grass.prototype, Game.Animator.prototype);
-
 Game.Door = function (door) {
 
   Game.Object.call(this, door.x, door.y, door.width, door.height);
@@ -441,13 +422,13 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   new f(65, 112, 13, 16, 0, -4), // jump-right
   new f(13, 112, 13, 16, 0, -4), new f(26, 112, 13, 16, 0, -4), new f(39, 112, 13, 16, 0, -4), new f(52, 112, 13, 16, 0, -4), // walk-right
   new f(81, 112, 14, 16), new f(96, 112, 16, 16), // carrot
-  new f(112, 115, 16, 4), new f(112, 124, 16, 4), new f(112, 119, 16, 4) // grass
+  
   ];
 
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-Game.World = function (friction = 0.68) {
+Game.World = function (friction = 0.70) {
 
   this.collider = new Game.Collider();
 
@@ -509,7 +490,6 @@ Game.World.prototype = {
 
     this.carrots = new Array();
     this.doors = new Array();
-    this.grass = new Array();
     this.collision_map = zone.collision_map;
     this.graphical_map = zone.graphical_map;
     this.columns = zone.columns;
@@ -530,12 +510,6 @@ Game.World.prototype = {
 
     }
 
-    for (let index = zone.grass.length - 1; index > -1; --index) {
-
-      let grass = zone.grass[index];
-      this.grass[index] = new Game.Grass(grass[0] * this.tile_set.tile_size, grass[1] * this.tile_set.tile_size + 12);
-
-    }
 
     if (this.door) {
 
@@ -593,13 +567,6 @@ Game.World.prototype = {
 
     }
 
-    for (let index = this.grass.length - 1; index > -1; --index) {
-
-      let grass = this.grass[index];
-
-      grass.animate();
-
-    }
 
     this.player.updateAnimation();
 
