@@ -40,9 +40,6 @@ window.addEventListener("load", function (event) {
 
   };
 
-
-  // FUNCTIONS
-
   var keyDownUp = function (event) {
 
     controller.keyDownUp(event.type, event.keyCode);
@@ -51,12 +48,8 @@ window.addEventListener("load", function (event) {
 
   var resize = function (event) {
 
-    //display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, game.world.height / game.world.width);
     display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, game.world.height / game.world.width);
-    //display.render();
     display.render();
-
-    var rectangle = display.context.canvas.getBoundingClientRect();
 
   };
 

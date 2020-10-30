@@ -1,4 +1,3 @@
-//classes
 const Game = function () {
 
   this.world = new Game.World();
@@ -112,7 +111,7 @@ Game.Collider = function () {
       case 13: if (
         this.collidePlatformTop(object, tile_y)) return;
                if (
-                 this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        this.collidePlatformBottom(object, tile_y + tile_size)) return;
         this.collidePlatformLeft(object, tile_x); break;
       case 14: if (
         this.collidePlatformBottom(object, tile_y + tile_size)) return;
