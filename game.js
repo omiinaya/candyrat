@@ -73,61 +73,61 @@ Game.Collider = function () {
     switch (value) {
 
       case 1:
-          this.collidePlatformTop(object, tile_y); break;
+        this.collidePlatformTop(object, tile_y); break;
       case 2:
-          this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 3: 
+        this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 3:
         if (
           this.collidePlatformTop(object, tile_y)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
       case 4:
-          this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 5: 
+        this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 5:
         if (
           this.collidePlatformTop(object, tile_y)) return;
-          this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 6: 
+        this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 6:
         if (
           this.collidePlatformRight(object, tile_x + tile_size)) return;
-          this.collidePlatformBottom(object, tile_y + tile_size); break;
+        this.collidePlatformBottom(object, tile_y + tile_size); break;
       case 7:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
       case 8:
-          this.collidePlatformLeft(object, tile_x); break;
+        this.collidePlatformLeft(object, tile_x); break;
       case 9:
         if (
           this.collidePlatformTop(object, tile_y)) return;
-          this.collidePlatformLeft(object, tile_x); break;
+        this.collidePlatformLeft(object, tile_x); break;
       case 10:
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
       case 11:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
       case 12:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-          this.collidePlatformLeft(object, tile_x); break;
+        this.collidePlatformLeft(object, tile_x); break;
       case 13:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-          this.collidePlatformLeft(object, tile_x); break;
+        this.collidePlatformLeft(object, tile_x); break;
       case 14:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
       case 15:
         if (
           this.collidePlatformTop(object, tile_y)) return;
@@ -135,7 +135,7 @@ Game.Collider = function () {
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-          this.collidePlatformRight(object, tile_x + tile_size); break;
+        this.collidePlatformRight(object, tile_x + tile_size); break;
 
     }
 
@@ -360,12 +360,21 @@ Game.Enemy = function (x, y) {
   this.velocity_x = 0;
   this.velocity_y = 0;
 
+  currentEnemy = this;
+
 };
 
 Game.Enemy.prototype = {
 
-  frame_sets: { 
-    "placeholder": [24] 
+  frame_sets: {
+    "placeholder": [24]
+  },
+
+  move: function () {
+    this.direction_x = 1;
+    this.direction_y = 0;
+    this.velocity_x = 1;
+    this.velocity_y = 0;
   },
 
   updatePosition: function () {
@@ -597,12 +606,12 @@ Game.World = function () {
   //8 columns, size 16
   this.tile_set = new Game.TileSet(8, 16);
   this.player = new Game.Player(34, 114);
+  this.enemy = new Game.Enemy(50, 114);
 
   this.zone_id = "00";
 
   this.donnuts = [];// the array of donnuts in this zone;
   this.candies = [];
-  this.enemies = [];
   this.donnut_count = 0;// the number of donnuts you have.
   this.candies_count = 0;
   this.doors = [];
@@ -650,7 +659,6 @@ Game.World.prototype = {
 
     this.donnuts = new Array();
     this.candies = new Array();
-    this.enemies = new Array();
     this.doors = new Array();
     this.collision_map = zone.collision_map;
     this.graphical_map = zone.graphical_map;
@@ -669,13 +677,6 @@ Game.World.prototype = {
 
       let candy = zone.candies[index];
       this.candies[index] = new Game.Candy(candy[0] * this.tile_set.tile_size + 5, candy[1] * this.tile_set.tile_size - 2);
-
-    }
-
-    for (let index = zone.enemies.length - 1; index > -1; --index) {
-
-      let enemy = zone.enemies[index];
-      this.enemies[index] = new Game.Enemy(enemy[0] * this.tile_set.tile_size + 5, enemy[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -747,21 +748,20 @@ Game.World.prototype = {
 
     }
 
-    for (let index = this.enemies.length - 1; index > -1; --index) {
 
-      let enemy = this.enemies[index];
+    let enemy = currentEnemy;
 
-      enemy.updatePosition();
-      enemy.animate();
+    enemy.updatePosition();
+    enemy.animate();
 
-      if (enemy.collideObject(this.player)) {
-          console.log("You have died.")
-        //this.enemies.splice(this.enemies.indexOf(enemy), 1);
-        //this.enemy_count++;
-
-      }
+    if (enemy.collideObject(this.player)) {
+      console.log("You have died.")
+      //this.enemies.splice(this.enemies.indexOf(enemy), 1);
+      //this.enemy_count++;
 
     }
+
+
 
     for (let index = this.doors.length - 1; index > -1; --index) {
 

@@ -87,25 +87,19 @@ window.addEventListener("load", function (event) {
 
     }
 
-    for (let index = game.world.enemies.length - 1; index > -1; --index) {
-
-      let enemy = game.world.enemies[index];
-
-      frame = game.world.tile_set.frames[enemy.frame_value];
-
-      display.drawObject(assets_manager.tile_set_image,
-        frame.x, frame.y,
-        enemy.x + Math.floor(enemy.width * 0.5 - frame.width * 0.5) + frame.offset_x,
-        enemy.y + frame.offset_y, frame.width, frame.height);
-
-    }
-
-    frame = game.world.tile_set.frames[game.world.player.frame_value];
+    playerframe = game.world.tile_set.frames[game.world.player.frame_value];
 
     display.drawObject(assets_manager.tile_set_image,
-      frame.x, frame.y,
-      game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offset_x,
-      game.world.player.y + frame.offset_y, frame.width, frame.height);
+      playerframe.x, playerframe.y,
+      game.world.player.x + Math.floor(game.world.player.width * 0.5 - playerframe.width * 0.5) + playerframe.offset_x,
+      game.world.player.y + playerframe.offset_y, playerframe.width, playerframe.height);
+
+    enemyframe = game.world.tile_set.frames[game.world.enemy.frame_value];
+
+    display.drawObject(assets_manager.tile_set_image,
+      enemyframe.x, enemyframe.y,
+      game.world.enemy.x + Math.floor(game.world.enemy.width * 0.5 - enemyframe.width * 0.5) + enemyframe.offset_x,
+      game.world.enemy.y + enemyframe.offset_y, enemyframe.width, enemyframe.height);
 
     display.render();
 
