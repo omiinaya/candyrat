@@ -423,13 +423,13 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 
   let f = Game.Frame;
 
-  this.frames = [new f(115, 96, 13, 16, 0, 0), // idle-left
-  new f(50, 96, 13, 16, 0, 0), // jump-left
-  new f(102, 96, 13, 16, 0, 0), new f(89, 96, 13, 16, 0, 0), new f(76, 96, 13, 16, 0, 0), new f(63, 96, 13, 16, 0, 0), // walk-left
-  new f(0, 112, 13, 16, 0, 0), // idle-right
-  new f(65, 112, 13, 16, 0, 0), // jump-right
-  new f(13, 112, 13, 16, 0, 0), new f(26, 112, 13, 16, 0, 0), new f(39, 112, 13, 16, 0, 0), new f(52, 112, 13, 16, 0, 0), // walk-right
-  new f(81, 112, 14, 16), new f(96, 112, 16, 16), // carrot
+  this.frames = [new f(0, 112, 16, 16, 0, 0), // idle-left
+  new f(0, 0, 16, 16, 0, 0), // jump-left
+  new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), // walk-left
+  new f(0, 112, 16, 16, 0, 0), // idle-right
+  new f(65, 112, 16, 16, 0, 0), // jump-right
+  new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), // walk-right
+  new f(81, 112, 16, 16), new f(96, 112, 16, 16), // carrot
   
   ];
 
