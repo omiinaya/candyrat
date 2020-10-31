@@ -287,7 +287,7 @@ Game.Carrot = function (x, y) {
 
 Game.Carrot.prototype = {
 
-  frame_sets: { "twirl": [12, 13] },
+  frame_sets: { "twirl": [15, 16] },
 
   updatePosition: function () {
 
@@ -339,15 +339,15 @@ Game.Player.prototype = {
   frame_sets: {
 
     "idle-left": [0],
-    "move-up": [1],
-    "move-left": [2, 3, 4, 5],
-    "idle-right": [6],
-    "move-down": [7],
-    "move-right": [8, 9, 10, 11],
+    "move-up": [1, 2, 3, 4],
+    "move-left": [5, 6, 7, 8],
+    "idle-right": [9],
+    "move-down": [10],
+    "move-right": [11, 12, 13, 14],
     //12 twirl left
     //13 twirl right
-    "idle-up": [14],
-    "idle-down": [15]
+    "idle-up": [17],
+    "idle-down": [18]
 
   },
 
@@ -452,7 +452,7 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   let f = Game.Frame;
 
   this.frames = [new f(0, 112, 16, 16, 0, -2), // idle-left
-  new f(80, 96, 16, 16, 0, -2), // move-up
+  new f(96, 96, 16, 16, 0, -2), new f(112, 96, 16, 16, 0, 02), new f(96, 96, 16, 16, 0, -2), new f(112, 96, 16, 16, 0, 02), // move-up
   new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), // walk-left
   new f(0, 112, 16, 16, 0, -2), // idle-right
   new f(32, 96, 16, 16, 0, -2), // move-down
