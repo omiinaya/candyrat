@@ -76,25 +76,25 @@ Game.Collider = function () {
         this.collidePlatformTop(object, tile_y); break;
       case 2:
         this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 3:  if (
+      case 3: if (
         this.collidePlatformTop(object, tile_y)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
       case 4:
         this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 5:  if (
+      case 5: if (
         this.collidePlatformTop(object, tile_y)) return;
         this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 6:  if (
+      case 6: if (
         this.collidePlatformRight(object, tile_x + tile_size)) return;
         this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 7:  if (
+      case 7: if (
         this.collidePlatformTop(object, tile_y)) return;
-               if (
-        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        if (
+          this.collidePlatformBottom(object, tile_y + tile_size)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 8: 
+      case 8:
         this.collidePlatformLeft(object, tile_x); break;
-      case 9:  if (
+      case 9: if (
         this.collidePlatformTop(object, tile_y)) return;
         this.collidePlatformLeft(object, tile_x); break;
       case 10: if (
@@ -102,28 +102,28 @@ Game.Collider = function () {
         this.collidePlatformRight(object, tile_x + tile_size); break;
       case 11: if (
         this.collidePlatformTop(object, tile_y)) return;
-               if (
-        this.collidePlatformLeft(object, tile_x)) return;
+        if (
+          this.collidePlatformLeft(object, tile_x)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
       case 12: if (
         this.collidePlatformBottom(object, tile_y + tile_size)) return;
         this.collidePlatformLeft(object, tile_x); break;
       case 13: if (
         this.collidePlatformTop(object, tile_y)) return;
-               if (
-        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        if (
+          this.collidePlatformBottom(object, tile_y + tile_size)) return;
         this.collidePlatformLeft(object, tile_x); break;
       case 14: if (
         this.collidePlatformBottom(object, tile_y + tile_size)) return;
-               if (
-        this.collidePlatformLeft(object, tile_x)) return;
+        if (
+          this.collidePlatformLeft(object, tile_x)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
       case 15: if (
         this.collidePlatformTop(object, tile_y)) return;
-               if (
-        this.collidePlatformBottom(object, tile_y + tile_size)) return;
-               if (
-        this.collidePlatformLeft(object, tile_x)) return;
+        if (
+          this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        if (
+          this.collidePlatformLeft(object, tile_x)) return;
         this.collidePlatformRight(object, tile_x + tile_size); break;
 
     }
@@ -140,7 +140,7 @@ Game.Collider.prototype = {
       object.setTop(tile_bottom);
       object.velocity_y = 0;
       return true;
-    } 
+    }
     return false;
   },
 
@@ -149,7 +149,7 @@ Game.Collider.prototype = {
       object.setRight(tile_left - 0.01);
       object.velocity_x = 0;
       return true;
-    } 
+    }
     return false;
   },
 
@@ -158,7 +158,7 @@ Game.Collider.prototype = {
       object.setLeft(tile_right);
       object.velocity_x = 0;
       return true;
-    } 
+    }
     return false;
   },
 
@@ -168,7 +168,7 @@ Game.Collider.prototype = {
       object.velocity_y = 0;
       object.jumping = false;
       return true;
-    } 
+    }
     return false;
   }
 };
@@ -202,11 +202,11 @@ Game.Object.prototype = {
   collideObject: function (object) {
 
     if (this.getRight() < object.getLeft() ||
-        this.getBottom() < object.getTop() ||
-        this.getLeft() > object.getRight() ||
-        this.getTop() > object.getBottom()) { 
-          return false; 
-        }
+      this.getBottom() < object.getTop() ||
+      this.getLeft() > object.getRight() ||
+      this.getTop() > object.getBottom()) {
+      return false;
+    }
     return true;
   },
 
@@ -215,8 +215,8 @@ Game.Object.prototype = {
     let center_y = object.getCenterY();
     if (center_x < this.getLeft() || center_x > this.getRight() ||
       center_y < this.getTop() || center_y > this.getBottom()) {
-        return false;
-      }
+      return false;
+    }
     return true;
   },
 
@@ -339,11 +339,13 @@ Game.Player.prototype = {
   frame_sets: {
 
     "idle-left": [0],
-    "jump-left": [1],
+    "move-up": [1],
     "move-left": [2, 3, 4, 5],
     "idle-right": [6],
-    "jump-right": [7],
-    "move-right": [8, 9, 10, 11]
+    "move-down": [7],
+    "move-right": [8, 9, 10, 11],
+    "idle-up":[14],
+    "idle-down":[15]
 
   },
 
@@ -364,7 +366,7 @@ Game.Player.prototype = {
     this.velocity_x = -1;
     this.velocity_y = 0;
   },
-  
+
   moveRight: function () {
     this.direction_x = 1;
     this.velocity_x = 1;
@@ -373,16 +375,26 @@ Game.Player.prototype = {
 
   updateAnimation: function () {
 
-      if (this.direction_x < 0) {
+    if (this.direction_x < 0) {
 
-      if (this.velocity_x < -0.1) this.changeFrameSet(this.frame_sets["move-left"], "loop", 5);
-      else this.changeFrameSet(this.frame_sets["idle-left"], "pause");
+      if (this.velocity_x < -0.1) {
+        this.changeFrameSet(this.frame_sets["move-left"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["idle-left"], "pause")
+      }
 
     } else if (this.direction_x > 0) {
 
-      if (this.velocity_x > 0.1) this.changeFrameSet(this.frame_sets["move-right"], "loop", 5);
-      else this.changeFrameSet(this.frame_sets["idle-right"], "pause");
+      if (this.velocity_x > 0.1) {
+        this.changeFrameSet(this.frame_sets["move-right"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["idle-right"], "pause")
+      }
 
+    }
+
+    if (this.direction_y < 0) {
+      console.log("test");
     }
 
     this.animate();
@@ -424,13 +436,14 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   let f = Game.Frame;
 
   this.frames = [new f(0, 112, 16, 16, 0, 0), // idle-left
-  new f(0, 0, 16, 16, 0, 0), // jump-left
+  new f(80, 96, 16, 16, 0, 0), // move-up
   new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), // walk-left
   new f(0, 112, 16, 16, 0, 0), // idle-right
-  new f(65, 112, 16, 16, 0, 0), // jump-right
+  new f(32, 96, 16, 16, 0, 0), // move-down
   new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), // walk-right
   new f(81, 112, 16, 16), new f(96, 112, 16, 16), // carrot
-  
+  new f(80, 96, 16, 16, 0, 0), //idle-up
+  new f(32, 96, 16, 16, 0, 0), //idle-down
   ];
 
 };
