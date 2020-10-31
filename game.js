@@ -322,7 +322,7 @@ Game.Door.prototype.constructor = Game.Door;
 Game.Player = function (x, y) {
 
   //set width and height of the player.
-  Game.MovingObject.call(this, x, y, 13, 13);
+  Game.MovingObject.call(this, x, y, 10, 10);
 
   Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
 
@@ -451,15 +451,15 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 
   let f = Game.Frame;
 
-  this.frames = [new f(0, 112, 16, 16, 0, 0), // idle-left
-  new f(80, 96, 16, 16, 0, 0), // move-up
-  new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), new f(16, 112, 16, 16, 0, 0), new f(32, 112, 16, 16, 0, 0), // walk-left
-  new f(0, 112, 16, 16, 0, 0), // idle-right
-  new f(32, 96, 16, 16, 0, 0), // move-down
-  new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), // walk-right
+  this.frames = [new f(0, 112, 16, 16, 0, -2), // idle-left
+  new f(80, 96, 16, 16, 0, -2), // move-up
+  new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), // walk-left
+  new f(0, 112, 16, 16, 0, -2), // idle-right
+  new f(32, 96, 16, 16, 0, -2), // move-down
+  new f(48, 112, 16, 16, 0, -2), new f(64, 112, 16, 16, 0, -2), new f(48, 112, 16, 16, 0, -2), new f(64, 112, 16, 16, 0, -2), // walk-right
   new f(96, 112, 16, 16), new f(112, 112, 16, 16), // carrot
-  new f(80, 96, 16, 16, 0, 0), //idle-up
-  new f(32, 96, 16, 16, 0, 0), //idle-down
+  new f(80, 96, 16, 16, 0, -2), //idle-up
+  new f(32, 96, 16, 16, 0, -2), //idle-down
   ];
 
 };
