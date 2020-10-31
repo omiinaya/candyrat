@@ -344,8 +344,10 @@ Game.Player.prototype = {
     "idle-right": [6],
     "move-down": [7],
     "move-right": [8, 9, 10, 11],
-    "idle-up":[14],
-    "idle-down":[15]
+    //12 twirl left
+    //13 twirl right
+    "idle-up": [14],
+    "idle-down": [15]
 
   },
 
@@ -375,7 +377,7 @@ Game.Player.prototype = {
 
   updateAnimation: function () {
 
-    if (this.direction_x < 0) {
+    if (this.direction_x < 0 && this.velocity_y === 0) {
 
       if (this.velocity_x < -0.1) {
         this.changeFrameSet(this.frame_sets["move-left"], "loop", 5)
@@ -383,7 +385,9 @@ Game.Player.prototype = {
         this.changeFrameSet(this.frame_sets["idle-left"], "pause")
       }
 
-    } else if (this.direction_x > 0) {
+    }
+
+    else if (this.direction_x > 0 && this.velocity_y === 0) {
 
       if (this.velocity_x > 0.1) {
         this.changeFrameSet(this.frame_sets["move-right"], "loop", 5)
@@ -393,8 +397,20 @@ Game.Player.prototype = {
 
     }
 
-    if (this.direction_y < 0) {
-      console.log("test");
+    else if (this.direction_y < 0 && this.velocity_x === 0) {
+      if (this.velocity_y < -0.1) {
+        this.changeFrameSet(this.frame_sets["move-down"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["idle-down"], "pause")
+      }
+    }
+
+    else if (this.direction_y > 0 && this.velocity_x === 0) {
+      if (this.velocity_y > 0.1) {
+        this.changeFrameSet(this.frame_sets["move-up"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["idle-up"], "pause")
+      }
     }
 
     this.animate();
