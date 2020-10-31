@@ -73,58 +73,69 @@ Game.Collider = function () {
     switch (value) {
 
       case 1:
-        this.collidePlatformTop(object, tile_y); break;
+          this.collidePlatformTop(object, tile_y); break;
       case 2:
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 3: if (
-        this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 3: 
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 4:
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 5: if (
-        this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 6: if (
-        this.collidePlatformRight(object, tile_x + tile_size)) return;
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
-      case 7: if (
-        this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 5: 
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 6: 
+        if (
+          this.collidePlatformRight(object, tile_x + tile_size)) return;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
+      case 7:
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 8:
-        this.collidePlatformLeft(object, tile_x); break;
-      case 9: if (
-        this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformLeft(object, tile_x); break;
-      case 10: if (
-        this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 11: if (
-        this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformLeft(object, tile_x); break;
+      case 9:
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformLeft(object, tile_x); break;
+      case 10:
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 12: if (
-        this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformLeft(object, tile_x); break;
-      case 13: if (
-        this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 11:
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
+        if (
+          this.collidePlatformLeft(object, tile_x)) return;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 12:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformLeft(object, tile_x); break;
-      case 14: if (
-        this.collidePlatformBottom(object, tile_y + tile_size)) return;
+          this.collidePlatformLeft(object, tile_x); break;
+      case 13:
         if (
-          this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
-      case 15: if (
-        this.collidePlatformTop(object, tile_y)) return;
+          this.collidePlatformTop(object, tile_y)) return;
+        if (
+          this.collidePlatformBottom(object, tile_y + tile_size)) return;
+          this.collidePlatformLeft(object, tile_x); break;
+      case 14:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
+      case 15:
+        if (
+          this.collidePlatformTop(object, tile_y)) return;
+        if (
+          this.collidePlatformBottom(object, tile_y + tile_size)) return;
+        if (
+          this.collidePlatformLeft(object, tile_x)) return;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
 
     }
 
@@ -434,7 +445,7 @@ Game.Player.prototype = {
     }
 
     else if (this.direction_y < 0 && this.direction_x === 0) {
-      
+
       if (this.velocity_y > 0.1) {
         this.changeFrameSet(this.frame_sets["move-down"], "loop", 5)
       } else {
@@ -448,7 +459,7 @@ Game.Player.prototype = {
       } else {
         this.changeFrameSet(this.frame_sets["idle-up"], "pause")
       }
-    } 
+    }
 
     this.animate();
 
@@ -487,46 +498,46 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 
   this.frames = [
 
-  // idle-left
-  new f(0, 112, 16, 16, 0, 0),   //1
+    // idle-left
+    new f(0, 112, 16, 16, 0, 0),   //1
 
-  // move-up
-  new f(96, 96, 16, 16, 0, 0),   //2
-  new f(112, 96, 16, 16, 0, 0),  //3
-  new f(96, 96, 16, 16, 0, 0),   //4
-  new f(112, 96, 16, 16, 0, 0),  //5
+    // move-up
+    new f(96, 96, 16, 16, 0, 0),   //2
+    new f(112, 96, 16, 16, 0, 0),  //3
+    new f(96, 96, 16, 16, 0, 0),   //4
+    new f(112, 96, 16, 16, 0, 0),  //5
 
-  // walk-left
-  new f(16, 112, 16, 16, 0, 0),  //6
-  new f(32, 112, 16, 16, 0, 0),  //7
-  new f(16, 112, 16, 16, 0, 0),  //8
-  new f(32, 112, 16, 16, 0, 0),  //9
+    // walk-left
+    new f(16, 112, 16, 16, 0, 0),  //6
+    new f(32, 112, 16, 16, 0, 0),  //7
+    new f(16, 112, 16, 16, 0, 0),  //8
+    new f(32, 112, 16, 16, 0, 0),  //9
 
-  // idle-right
-  new f(80, 112, 16, 16, 0, 0),  //10
+    // idle-right
+    new f(80, 112, 16, 16, 0, 0),  //10
 
-  // move-down
-  new f(64, 96, 16, 16, 0, 0),   //11
-  new f(48, 96, 16, 16, 0, 0),   //12
-  new f(64, 96, 16, 16, 0, 0),   //13
-  new f(48, 96, 16, 16, 0, 0),   //14
+    // move-down
+    new f(64, 96, 16, 16, 0, 0),   //11
+    new f(48, 96, 16, 16, 0, 0),   //12
+    new f(64, 96, 16, 16, 0, 0),   //13
+    new f(48, 96, 16, 16, 0, 0),   //14
 
-  // walk-right
-  new f(48, 112, 16, 16, 0, 0),  //15
-  new f(64, 112, 16, 16, 0, 0),  //16
-  new f(48, 112, 16, 16, 0, 0),  //17
-  new f(64, 112, 16, 16, 0, 0),  //18
+    // walk-right
+    new f(48, 112, 16, 16, 0, 0),  //15
+    new f(64, 112, 16, 16, 0, 0),  //16
+    new f(48, 112, 16, 16, 0, 0),  //17
+    new f(64, 112, 16, 16, 0, 0),  //18
 
-  // idle-up
-  new f(80, 96, 16, 16, 0, 0),   //21
-  // idle-down
-  new f(32, 96, 16, 16, 0, 0),   //22
-  // donnut
-  new f(96, 112, 16, 16),         //19
-  new f(112, 112, 16, 16),        //20
-  // candy
-  new f(0, 128, 16, 16, 0, 0),    //21
-  new f(16, 128, 16, 16, 0, 0)    //22
+    // idle-up
+    new f(80, 96, 16, 16, 0, 0),   //21
+    // idle-down
+    new f(32, 96, 16, 16, 0, 0),   //22
+    // donnut
+    new f(96, 112, 16, 16),         //19
+    new f(112, 112, 16, 16),        //20
+    // candy
+    new f(0, 128, 16, 16, 0, 0),    //21
+    new f(16, 128, 16, 16, 0, 0)    //22
   ];
 
 };
