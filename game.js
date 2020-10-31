@@ -287,7 +287,7 @@ Game.Carrot = function (x, y) {
 
 Game.Carrot.prototype = {
 
-  frame_sets: { "twirl": [15, 16] },
+  frame_sets: { "twirl": [18, 19] },
 
   updatePosition: function () {
 
@@ -342,12 +342,12 @@ Game.Player.prototype = {
     "move-up": [1, 2, 3, 4],
     "move-left": [5, 6, 7, 8],
     "idle-right": [9],
-    "move-down": [10],
-    "move-right": [11, 12, 13, 14],
+    "move-down": [10, 11, 12, 13],
+    "move-right": [14, 15, 16, 17],
     //15 twirl left
     //16 twirl right
-    "idle-up": [17],
-    "idle-down": [18]
+    "idle-up": [20],
+    "idle-down": [21]
 
   },
 
@@ -402,7 +402,8 @@ Game.Player.prototype = {
     }
 
     else if (this.direction_y < 0 && this.direction_x === 0) {
-      if (this.velocity_y < -0.1) {
+      
+      if (this.velocity_y > 0.1) {
         this.changeFrameSet(this.frame_sets["move-down"], "loop", 5)
       } else {
         this.changeFrameSet(this.frame_sets["idle-down"], "pause")
@@ -410,7 +411,7 @@ Game.Player.prototype = {
     }
 
     else if (this.direction_y > 0 && this.direction_x === 0) {
-      if (this.velocity_y > 0.1) {
+      if (this.velocity_y < -0.1) {
         this.changeFrameSet(this.frame_sets["move-up"], "loop", 5)
       } else {
         this.changeFrameSet(this.frame_sets["idle-up"], "pause")
@@ -470,19 +471,22 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   //
   new f(80, 112, 16, 16, 0, -2),  //10 idle-right
   //
-  new f(32, 96, 16, 16, 0, -2),   //11 move-down
+  new f(64, 96, 16, 16, 0, -2),   //11
+  new f(48, 96, 16, 16, 0, -2),   //12
+  new f(64, 96, 16, 16, 0, -2),   //13
+  new f(48, 96, 16, 16, 0, -2),   //14 move-down
   //
-  new f(48, 112, 16, 16, 0, -2),  //12
-  new f(64, 112, 16, 16, 0, -2),  //13
-  new f(48, 112, 16, 16, 0, -2),  //14
-  new f(64, 112, 16, 16, 0, -2),  //15 walk-right
+  new f(48, 112, 16, 16, 0, -2),  //15
+  new f(64, 112, 16, 16, 0, -2),  //16
+  new f(48, 112, 16, 16, 0, -2),  //17
+  new f(64, 112, 16, 16, 0, -2),  //18 walk-right
   //
-  new f(96, 112, 16, 16),         //16
-  new f(112, 112, 16, 16),        //17 carrot
+  new f(96, 112, 16, 16),         //19
+  new f(112, 112, 16, 16),        //20 carrot
   //
-  new f(80, 96, 16, 16, 0, -2),   //18 idle-up
+  new f(80, 96, 16, 16, 0, -2),   //21 idle-up
   ///
-  new f(32, 96, 16, 16, 0, -2),   //19 idle-down
+  new f(32, 96, 16, 16, 0, -2),   //22 idle-down
   ];
 
 };
