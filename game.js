@@ -457,7 +457,7 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   new f(0, 112, 16, 16, 0, 0), // idle-right
   new f(32, 96, 16, 16, 0, 0), // move-down
   new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), new f(48, 112, 16, 16, 0, 0), new f(64, 112, 16, 16, 0, 0), // walk-right
-  new f(81, 112, 16, 16), new f(96, 112, 16, 16), // carrot
+  new f(96, 112, 16, 16), new f(112, 112, 16, 16), // carrot
   new f(80, 96, 16, 16, 0, 0), //idle-up
   new f(32, 96, 16, 16, 0, 0), //idle-down
   ];
