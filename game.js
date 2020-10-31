@@ -420,13 +420,10 @@ Game.Player.prototype = {
 
   },
 
-  updatePosition: function (friction) {
+  updatePosition: function () {
 
     this.x_old = this.x;
     this.y_old = this.y;
-
-    this.velocity_y *= friction;
-    this.velocity_x *= friction;
 
     /* Made it so that velocity cannot exceed velocity_max */
     if (Math.abs(this.velocity_x) > this.velocity_max)
@@ -450,7 +447,7 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 
   this.columns = columns;
   this.tile_size = tile_size;
-  this.tile_scale = 16;
+  this.tile_scale = tile_scale;
 
   let f = Game.Frame;
 
@@ -498,11 +495,9 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 };
 Game.TileSet.prototype = { constructor: Game.TileSet };
 
-Game.World = function (friction = 1) {
+Game.World = function () {
 
   this.collider = new Game.Collider();
-
-  this.friction = friction;
 
   this.columns = 12;
   this.rows = 9;
@@ -605,7 +600,7 @@ Game.World.prototype = {
 
   update: function () {
 
-    this.player.updatePosition(this.friction);
+    this.player.updatePosition();
 
     this.collideObject(this.player);
 
