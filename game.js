@@ -321,7 +321,7 @@ Game.Candy = function (x, y) {
 
 Game.Candy.prototype = {
 
-  frame_sets: { "twirl": [20, 21] },
+  frame_sets: { "twirl": [22, 23] },
 
   updatePosition: function () {
 
@@ -524,6 +524,9 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   // donnut
   new f(96, 112, 16, 16),         //19
   new f(112, 112, 16, 16),        //20
+  // candy
+  new f(0, 128, 16, 16, 0, 0),    //21
+  new f(16, 128, 16, 16, 0, 0)    //22
   ];
 
 };
