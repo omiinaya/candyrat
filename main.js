@@ -61,16 +61,16 @@ window.addEventListener("load", function (event) {
     display.drawMap(assets_manager.tile_set_image,
       game.world.tile_set.columns, game.world.graphical_map, game.world.columns, game.world.tile_set.tile_size);
 
-    for (let index = game.world.carrots.length - 1; index > -1; --index) {
+    for (let index = game.world.donnuts.length - 1; index > -1; --index) {
 
-      let carrot = game.world.carrots[index];
+      let donnut = game.world.donnuts[index];
 
-      frame = game.world.tile_set.frames[carrot.frame_value];
+      frame = game.world.tile_set.frames[donnut.frame_value];
 
       display.drawObject(assets_manager.tile_set_image,
         frame.x, frame.y,
-        carrot.x + Math.floor(carrot.width * 0.5 - frame.width * 0.5) + frame.offset_x,
-        carrot.y + frame.offset_y, frame.width, frame.height);
+        donnut.x + Math.floor(donnut.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+        donnut.y + frame.offset_y, frame.width, frame.height);
 
     }
 

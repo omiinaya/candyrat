@@ -267,16 +267,16 @@ Game.MovingObject.prototype = {
 Object.assign(Game.MovingObject.prototype, Game.Object.prototype);
 Game.MovingObject.prototype.constructor = Game.MovingObject;
 
-/* The carrot class extends Game.Object and Game.Animation. */
-Game.Carrot = function (x, y) {
+/* The donnut class extends Game.Object and Game.Animation. */
+Game.Donnut = function (x, y) {
 
   Game.Object.call(this, x, y, 7, 14);
-  Game.Animator.call(this, Game.Carrot.prototype.frame_sets["twirl"], 15);
+  Game.Animator.call(this, Game.Donnut.prototype.frame_sets["twirl"], 15);
 
   this.frame_index = Math.floor(Math.random() * 2);
 
-  /* base_x and base_y are the point around which the carrot revolves. position_x
-  and y are used to track the vector facing away from the base point to give the carrot
+  /* base_x and base_y are the point around which the donnut revolves. position_x
+  and y are used to track the vector facing away from the base point to give the donnut
   the floating effect. */
   this.base_x = x;
   this.base_y = y;
@@ -285,7 +285,7 @@ Game.Carrot = function (x, y) {
 
 };
 
-Game.Carrot.prototype = {
+Game.Donnut.prototype = {
 
   frame_sets: { "twirl": [20, 21] },
 
@@ -301,11 +301,10 @@ Game.Carrot.prototype = {
 
 };
 
-Object.assign(Game.Carrot.prototype, Game.Animator.prototype);
-Object.assign(Game.Carrot.prototype, Game.Object.prototype);
-Game.Carrot.prototype.constructor = Game.Carrot;
-//
-//
+Object.assign(Game.Donnut.prototype, Game.Animator.prototype);
+Object.assign(Game.Donnut.prototype, Game.Object.prototype);
+Game.Donnut.prototype.constructor = Game.Donnut;
+
 Game.Candy = function (x, y) {
 
   Game.Object.call(this, x, y, 7, 14);
@@ -339,8 +338,7 @@ Game.Candy.prototype = {
 Object.assign(Game.Candy.prototype, Game.Animator.prototype);
 Object.assign(Game.Candy.prototype, Game.Object.prototype);
 Game.Candy.prototype.constructor = Game.Candy;
-//
-//
+
 Game.Door = function (door) {
 
   Game.Object.call(this, door.x, door.y, door.width, door.height);
@@ -523,7 +521,7 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   new f(80, 96, 16, 16, 0, 0),   //21
   // idle-down
   new f(32, 96, 16, 16, 0, 0),   //22
-  // carrot
+  // donnut
   new f(96, 112, 16, 16),         //19
   new f(112, 112, 16, 16),        //20
   ];
@@ -544,9 +542,9 @@ Game.World = function () {
 
   this.zone_id = "00";
 
-  this.carrots = [];// the array of carrots in this zone;
+  this.donnuts = [];// the array of donnuts in this zone;
   this.candies = []
-  this.carrot_count = 0;// the number of carrots you have.
+  this.donnut_count = 0;// the number of donnuts you have.
   this.candies_count = 0;
   this.doors = [];
   this.door = undefined;
@@ -591,7 +589,7 @@ Game.World.prototype = {
 
   setup: function (zone) {
 
-    this.carrots = new Array();
+    this.donnuts = new Array();
     this.candies = new Array();
     this.doors = new Array();
     this.collision_map = zone.collision_map;
@@ -600,10 +598,10 @@ Game.World.prototype = {
     this.rows = zone.rows;
     this.zone_id = zone.id;
 
-    for (let index = zone.carrots.length - 1; index > -1; --index) {
+    for (let index = zone.donnuts.length - 1; index > -1; --index) {
 
-      let carrot = zone.carrots[index];
-      this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+      let donnut = zone.donnuts[index];
+      this.donnuts[index] = new Game.Donnut(donnut[0] * this.tile_set.tile_size + 5, donnut[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -650,17 +648,17 @@ Game.World.prototype = {
 
     this.collideObject(this.player);
 
-    for (let index = this.carrots.length - 1; index > -1; --index) {
+    for (let index = this.donnuts.length - 1; index > -1; --index) {
 
-      let carrot = this.carrots[index];
+      let donnut = this.donnuts[index];
 
-      carrot.updatePosition();
-      carrot.animate();
+      donnut.updatePosition();
+      donnut.animate();
 
-      if (carrot.collideObject(this.player)) {
+      if (donnut.collideObject(this.player)) {
 
-        this.carrots.splice(this.carrots.indexOf(carrot), 1);
-        this.carrot_count++;
+        this.donnuts.splice(this.donnuts.indexOf(donnut), 1);
+        this.donnut_count++;
 
       }
 
