@@ -322,9 +322,9 @@ Game.Door.prototype.constructor = Game.Door;
 Game.Player = function (x, y) {
 
   //set width and height of the player.
-  Game.MovingObject.call(this, x, y, 10, 10);
+  Game.MovingObject.call(this, x, y, 12, 12);
 
-  Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-right"], 10);
+  Game.Animator.call(this, Game.Player.prototype.frame_sets["idle-down"], 10);
 
   this.direction_x = 1;
   this.velocity_x = 0;
@@ -454,39 +454,39 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   this.frames = [
 
   // idle-left
-  new f(0, 112, 16, 16, 0, -2),   //1
+  new f(0, 112, 16, 16, 0, 0),   //1
 
   // move-up
-  new f(96, 96, 16, 16, 0, -2),   //2
-  new f(112, 96, 16, 16, 0, -2),  //3
-  new f(96, 96, 16, 16, 0, -2),   //4
-  new f(112, 96, 16, 16, 0, -2),  //5
+  new f(96, 96, 16, 16, 0, 0),   //2
+  new f(112, 96, 16, 16, 0, 0),  //3
+  new f(96, 96, 16, 16, 0, 0),   //4
+  new f(112, 96, 16, 16, 0, 0),  //5
 
   // walk-left
-  new f(16, 112, 16, 16, 0, -2),  //6
-  new f(32, 112, 16, 16, 0, -2),  //7
-  new f(16, 112, 16, 16, 0, -2),  //8
-  new f(32, 112, 16, 16, 0, -2),  //9
+  new f(16, 112, 16, 16, 0, 0),  //6
+  new f(32, 112, 16, 16, 0, 0),  //7
+  new f(16, 112, 16, 16, 0, 0),  //8
+  new f(32, 112, 16, 16, 0, 0),  //9
 
   // idle-right
-  new f(80, 112, 16, 16, 0, -2),  //10
+  new f(80, 112, 16, 16, 0, 0),  //10
 
   // move-down
-  new f(64, 96, 16, 16, 0, -2),   //11
-  new f(48, 96, 16, 16, 0, -2),   //12
-  new f(64, 96, 16, 16, 0, -2),   //13
-  new f(48, 96, 16, 16, 0, -2),   //14
+  new f(64, 96, 16, 16, 0, 0),   //11
+  new f(48, 96, 16, 16, 0, 0),   //12
+  new f(64, 96, 16, 16, 0, 0),   //13
+  new f(48, 96, 16, 16, 0, 0),   //14
 
   // walk-right
-  new f(48, 112, 16, 16, 0, -2),  //15
-  new f(64, 112, 16, 16, 0, -2),  //16
-  new f(48, 112, 16, 16, 0, -2),  //17
-  new f(64, 112, 16, 16, 0, -2),  //18
+  new f(48, 112, 16, 16, 0, 0),  //15
+  new f(64, 112, 16, 16, 0, 0),  //16
+  new f(48, 112, 16, 16, 0, 0),  //17
+  new f(64, 112, 16, 16, 0, 0),  //18
 
   // idle-up
-  new f(80, 96, 16, 16, 0, -2),   //21
+  new f(80, 96, 16, 16, 0, 0),   //21
   // idle-down
-  new f(32, 96, 16, 16, 0, -2),   //22
+  new f(32, 96, 16, 16, 0, 0),   //22
   // carrot
   new f(96, 112, 16, 16),         //19
   new f(112, 112, 16, 16),        //20
@@ -504,7 +504,7 @@ Game.World = function () {
 
   //8 columns, size 16
   this.tile_set = new Game.TileSet(8, 16);
-  this.player = new Game.Player(32, 112);
+  this.player = new Game.Player(34, 114);
 
   this.zone_id = "00";
 
