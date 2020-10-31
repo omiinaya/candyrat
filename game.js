@@ -352,29 +352,36 @@ Game.Candy.prototype.constructor = Game.Candy;
 
 Game.Enemy = function (x, y) {
 
-  Game.Object.call(this, x, y, 7, 14);
+  Game.MovingObject.call(this, x, y, 7, 14);
+
   Game.Animator.call(this, Game.Enemy.prototype.frame_sets["placeholder"], 15);
 
-  this.frame_index = Math.floor(Math.random() * 2);
 
-  this.base_x = x;
-  this.base_y = y;
-  this.position_x = Math.random() * Math.PI * 2; //randomizes left and right movement
-  this.position_y = this.position_x * 2;
+  this.velocity_x = 0;
+  this.velocity_y = 0;
 
 };
 
 Game.Enemy.prototype = {
 
-  frame_sets: { "placeholder": [24] },
+  frame_sets: { 
+    "placeholder": [24] 
+  },
 
   updatePosition: function () {
 
-    this.position_x += 0.1;
-    this.position_y += 0.2;
+    this.x_old = this.x;
+    this.y_old = this.y;
 
-    this.x = this.base_x + Math.cos(this.position_x) * 2;
-    this.y = this.base_y + Math.sin(this.position_y);
+    /* Made it so that velocity cannot exceed velocity_max */
+    if (Math.abs(this.velocity_x) > this.velocity_max)
+      this.velocity_x = this.velocity_max * Math.sign(this.velocity_x);
+
+    if (Math.abs(this.velocity_y) > this.velocity_max)
+      this.velocity_y = this.velocity_max * Math.sign(this.velocity_y);
+
+    this.x += this.velocity_x;
+    this.y += this.velocity_y;
 
   }
 
