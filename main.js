@@ -74,6 +74,19 @@ window.addEventListener("load", function (event) {
 
     }
 
+    for (let index = game.world.candies.length - 1; index > -1; --index) {
+
+      let candy = game.world.candies[index];
+
+      frame = game.world.tile_set.frames[candy.frame_value];
+
+      display.drawObject(assets_manager.tile_set_image,
+        frame.x, frame.y,
+        candy.x + Math.floor(candy.width * 0.5 - frame.width * 0.5) + frame.offset_x,
+        candy.y + frame.offset_y, frame.width, frame.height);
+
+    }
+
     frame = game.world.tile_set.frames[game.world.player.frame_value];
 
     display.drawObject(assets_manager.tile_set_image,

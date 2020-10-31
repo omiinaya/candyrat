@@ -304,7 +304,43 @@ Game.Carrot.prototype = {
 Object.assign(Game.Carrot.prototype, Game.Animator.prototype);
 Object.assign(Game.Carrot.prototype, Game.Object.prototype);
 Game.Carrot.prototype.constructor = Game.Carrot;
+//
+//
+Game.Candy = function (x, y) {
 
+  Game.Object.call(this, x, y, 7, 14);
+  Game.Animator.call(this, Game.Candy.prototype.frame_sets["twirl"], 15);
+
+  this.frame_index = Math.floor(Math.random() * 2);
+
+  this.base_x = x;
+  this.base_y = y;
+  this.position_x = Math.random() * Math.PI * 2; //randomizes left and right movement
+  this.position_y = this.position_x * 2;
+
+};
+
+Game.Candy.prototype = {
+
+  frame_sets: { "twirl": [20, 21] },
+
+  updatePosition: function () {
+
+    this.position_x += 0.1;
+    this.position_y += 0.2;
+
+    this.x = this.base_x + Math.cos(this.position_x) * 2;
+    this.y = this.base_y + Math.sin(this.position_y);
+
+  }
+
+};
+
+Object.assign(Game.Candy.prototype, Game.Animator.prototype);
+Object.assign(Game.Candy.prototype, Game.Object.prototype);
+Game.Candy.prototype.constructor = Game.Candy;
+//
+//
 Game.Door = function (door) {
 
   Game.Object.call(this, door.x, door.y, door.width, door.height);
@@ -509,7 +545,9 @@ Game.World = function () {
   this.zone_id = "00";
 
   this.carrots = [];// the array of carrots in this zone;
+  this.candies = []
   this.carrot_count = 0;// the number of carrots you have.
+  this.candies_count = 0;
   this.doors = [];
   this.door = undefined;
 
@@ -554,6 +592,7 @@ Game.World.prototype = {
   setup: function (zone) {
 
     this.carrots = new Array();
+    this.candies = new Array();
     this.doors = new Array();
     this.collision_map = zone.collision_map;
     this.graphical_map = zone.graphical_map;
@@ -565,6 +604,13 @@ Game.World.prototype = {
 
       let carrot = zone.carrots[index];
       this.carrots[index] = new Game.Carrot(carrot[0] * this.tile_set.tile_size + 5, carrot[1] * this.tile_set.tile_size - 2);
+
+    }
+
+    for (let index = zone.candies.length - 1; index > -1; --index) {
+
+      let candy = zone.candies[index];
+      this.candies[index] = new Game.Candy(candy[0] * this.tile_set.tile_size + 5, candy[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -615,6 +661,22 @@ Game.World.prototype = {
 
         this.carrots.splice(this.carrots.indexOf(carrot), 1);
         this.carrot_count++;
+
+      }
+
+    }
+
+    for (let index = this.candies.length - 1; index > -1; --index) {
+
+      let candy = this.candies[index];
+
+      candy.updatePosition();
+      candy.animate();
+
+      if (candy.collideObject(this.player)) {
+
+        this.candies.splice(this.candies.indexOf(candy), 1);
+        this.candy_count++;
 
       }
 
