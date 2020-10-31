@@ -344,8 +344,8 @@ Game.Player.prototype = {
     "idle-right": [9],
     "move-down": [10],
     "move-right": [11, 12, 13, 14],
-    //12 twirl left
-    //13 twirl right
+    //15 twirl left
+    //16 twirl right
     "idle-up": [17],
     "idle-down": [18]
 
@@ -455,15 +455,34 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
 
   let f = Game.Frame;
 
-  this.frames = [new f(0, 112, 16, 16, 0, -2), // idle-left
-  new f(96, 96, 16, 16, 0, -2), new f(112, 96, 16, 16, 0, 02), new f(96, 96, 16, 16, 0, -2), new f(112, 96, 16, 16, 0, 02), // move-up
-  new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), new f(16, 112, 16, 16, 0, -2), new f(32, 112, 16, 16, 0, -2), // walk-left
-  new f(0, 112, 16, 16, 0, -2), // idle-right
-  new f(32, 96, 16, 16, 0, -2), // move-down
-  new f(48, 112, 16, 16, 0, -2), new f(64, 112, 16, 16, 0, -2), new f(48, 112, 16, 16, 0, -2), new f(64, 112, 16, 16, 0, -2), // walk-right
-  new f(96, 112, 16, 16), new f(112, 112, 16, 16), // carrot
-  new f(80, 96, 16, 16, 0, -2), //idle-up
-  new f(32, 96, 16, 16, 0, -2), //idle-down
+  this.frames = [
+  new f(0, 112, 16, 16, 0, -2),   //1 idle-left
+  //
+  new f(96, 96, 16, 16, 0, -2),   //2
+  new f(112, 96, 16, 16, 0, -2),  //3
+  new f(96, 96, 16, 16, 0, -2),   //4
+  new f(112, 96, 16, 16, 0, -2),  //5 move-up
+  //
+  new f(16, 112, 16, 16, 0, -2),  //6
+  new f(32, 112, 16, 16, 0, -2),  //7
+  new f(16, 112, 16, 16, 0, -2),  //8
+  new f(32, 112, 16, 16, 0, -2),  //9 walk-left
+  //
+  new f(80, 112, 16, 16, 0, -2),  //10 idle-right
+  //
+  new f(32, 96, 16, 16, 0, -2),   //11 move-down
+  //
+  new f(48, 112, 16, 16, 0, -2),  //12
+  new f(64, 112, 16, 16, 0, -2),  //13
+  new f(48, 112, 16, 16, 0, -2),  //14
+  new f(64, 112, 16, 16, 0, -2),  //15 walk-right
+  //
+  new f(96, 112, 16, 16),         //16
+  new f(112, 112, 16, 16),        //17 carrot
+  //
+  new f(80, 96, 16, 16, 0, -2),   //18 idle-up
+  ///
+  new f(32, 96, 16, 16, 0, -2),   //19 idle-down
   ];
 
 };
