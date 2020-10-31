@@ -353,31 +353,35 @@ Game.Player.prototype = {
 
   moveUp: function () {
     this.direction_y = 1;
+    this.direction_x = 0;
     this.velocity_y = -1;
     this.velocity_x = 0;
   },
 
   moveDown: function () {
     this.direction_y = -1;
+    this.direction_x = 0;
     this.velocity_y = 1;
     this.velocity_x = 0;
   },
 
   moveLeft: function () {
     this.direction_x = -1;
+    this.direction_y = 0;
     this.velocity_x = -1;
     this.velocity_y = 0;
   },
 
   moveRight: function () {
     this.direction_x = 1;
+    this.direction_y = 0;
     this.velocity_x = 1;
     this.velocity_y = 0;
   },
 
   updateAnimation: function () {
 
-    if (this.direction_x < 0 && this.velocity_y === 0) {
+    if (this.direction_x < 0 && this.direction_y === 0) {
 
       if (this.velocity_x < -0.1) {
         this.changeFrameSet(this.frame_sets["move-left"], "loop", 5)
@@ -387,7 +391,7 @@ Game.Player.prototype = {
 
     }
 
-    else if (this.direction_x > 0 && this.velocity_y === 0) {
+    else if (this.direction_x > 0 && this.direction_y === 0) {
 
       if (this.velocity_x > 0.1) {
         this.changeFrameSet(this.frame_sets["move-right"], "loop", 5)
@@ -397,7 +401,7 @@ Game.Player.prototype = {
 
     }
 
-    else if (this.direction_y < 0 && this.velocity_x === 0) {
+    else if (this.direction_y < 0 && this.direction_x === 0) {
       if (this.velocity_y < -0.1) {
         this.changeFrameSet(this.frame_sets["move-down"], "loop", 5)
       } else {
@@ -405,13 +409,13 @@ Game.Player.prototype = {
       }
     }
 
-    else if (this.direction_y > 0 && this.velocity_x === 0) {
+    else if (this.direction_y > 0 && this.direction_x === 0) {
       if (this.velocity_y > 0.1) {
         this.changeFrameSet(this.frame_sets["move-up"], "loop", 5)
       } else {
         this.changeFrameSet(this.frame_sets["idle-up"], "pause")
       }
-    }
+    } 
 
     this.animate();
 
