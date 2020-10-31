@@ -350,6 +350,41 @@ Object.assign(Game.Candy.prototype, Game.Animator.prototype);
 Object.assign(Game.Candy.prototype, Game.Object.prototype);
 Game.Candy.prototype.constructor = Game.Candy;
 
+Game.Enemy = function (x, y) {
+
+  Game.Object.call(this, x, y, 7, 14);
+  Game.Animator.call(this, Game.Enemy.prototype.frame_sets["placeholder"], 15);
+
+  this.frame_index = Math.floor(Math.random() * 2);
+
+  this.base_x = x;
+  this.base_y = y;
+  this.position_x = Math.random() * Math.PI * 2; //randomizes left and right movement
+  this.position_y = this.position_x * 2;
+
+};
+
+Game.Enemy.prototype = {
+
+  frame_sets: { "placeholder": [24] },
+
+  updatePosition: function () {
+
+    this.position_x += 0.1;
+    this.position_y += 0.2;
+
+    this.x = this.base_x + Math.cos(this.position_x) * 2;
+    this.y = this.base_y + Math.sin(this.position_y);
+
+  }
+
+};
+
+Object.assign(Game.Enemy.prototype, Game.Animator.prototype);
+Object.assign(Game.Enemy.prototype, Game.Object.prototype);
+Game.Enemy.prototype.constructor = Game.Enemy;
+
+
 Game.Door = function (door) {
 
   Game.Object.call(this, door.x, door.y, door.width, door.height);
@@ -499,45 +534,47 @@ Game.TileSet = function (columns, tile_size, tile_scale) {
   this.frames = [
 
     // idle-left
-    new f(0, 112, 16, 16, 0, 0),   //1
+    new f(0, 112, 16, 16, 0, 0),   //0
 
     // move-up
-    new f(96, 96, 16, 16, 0, 0),   //2
-    new f(112, 96, 16, 16, 0, 0),  //3
-    new f(96, 96, 16, 16, 0, 0),   //4
-    new f(112, 96, 16, 16, 0, 0),  //5
+    new f(96, 96, 16, 16, 0, 0),   //1
+    new f(112, 96, 16, 16, 0, 0),  //2
+    new f(96, 96, 16, 16, 0, 0),   //3
+    new f(112, 96, 16, 16, 0, 0),  //4
 
     // walk-left
-    new f(16, 112, 16, 16, 0, 0),  //6
-    new f(32, 112, 16, 16, 0, 0),  //7
-    new f(16, 112, 16, 16, 0, 0),  //8
-    new f(32, 112, 16, 16, 0, 0),  //9
+    new f(16, 112, 16, 16, 0, 0),  //5
+    new f(32, 112, 16, 16, 0, 0),  //6
+    new f(16, 112, 16, 16, 0, 0),  //7
+    new f(32, 112, 16, 16, 0, 0),  //8
 
     // idle-right
-    new f(80, 112, 16, 16, 0, 0),  //10
+    new f(80, 112, 16, 16, 0, 0),  //9
 
     // move-down
-    new f(64, 96, 16, 16, 0, 0),   //11
-    new f(48, 96, 16, 16, 0, 0),   //12
-    new f(64, 96, 16, 16, 0, 0),   //13
-    new f(48, 96, 16, 16, 0, 0),   //14
+    new f(64, 96, 16, 16, 0, 0),   //10
+    new f(48, 96, 16, 16, 0, 0),   //11
+    new f(64, 96, 16, 16, 0, 0),   //12
+    new f(48, 96, 16, 16, 0, 0),   //13
 
     // walk-right
-    new f(48, 112, 16, 16, 0, 0),  //15
-    new f(64, 112, 16, 16, 0, 0),  //16
-    new f(48, 112, 16, 16, 0, 0),  //17
-    new f(64, 112, 16, 16, 0, 0),  //18
+    new f(48, 112, 16, 16, 0, 0),  //14
+    new f(64, 112, 16, 16, 0, 0),  //15
+    new f(48, 112, 16, 16, 0, 0),  //16
+    new f(64, 112, 16, 16, 0, 0),  //17
 
     // idle-up
-    new f(80, 96, 16, 16, 0, 0),   //21
+    new f(80, 96, 16, 16, 0, 0),   //18
     // idle-down
-    new f(32, 96, 16, 16, 0, 0),   //22
+    new f(32, 96, 16, 16, 0, 0),   //19
     // donnut
-    new f(96, 112, 16, 16),         //19
-    new f(112, 112, 16, 16),        //20
+    new f(96, 112, 16, 16),         //20
+    new f(112, 112, 16, 16),        //21
     // candy
-    new f(0, 128, 16, 16, 0, 0),    //21
-    new f(16, 128, 16, 16, 0, 0)    //22
+    new f(0, 128, 16, 16, 0, 0),    //22
+    new f(16, 128, 16, 16, 0, 0),   //23
+    // enemy 1
+    new f(32, 128, 16, 16, 0, 0)    //24
   ];
 
 };
@@ -557,7 +594,8 @@ Game.World = function () {
   this.zone_id = "00";
 
   this.donnuts = [];// the array of donnuts in this zone;
-  this.candies = []
+  this.candies = [];
+  this.enemies = [];
   this.donnut_count = 0;// the number of donnuts you have.
   this.candies_count = 0;
   this.doors = [];
@@ -605,6 +643,7 @@ Game.World.prototype = {
 
     this.donnuts = new Array();
     this.candies = new Array();
+    this.enemies = new Array();
     this.doors = new Array();
     this.collision_map = zone.collision_map;
     this.graphical_map = zone.graphical_map;
@@ -623,6 +662,13 @@ Game.World.prototype = {
 
       let candy = zone.candies[index];
       this.candies[index] = new Game.Candy(candy[0] * this.tile_set.tile_size + 5, candy[1] * this.tile_set.tile_size - 2);
+
+    }
+
+    for (let index = zone.enemies.length - 1; index > -1; --index) {
+
+      let enemy = zone.enemies[index];
+      this.enemies[index] = new Game.Enemy(enemy[0] * this.tile_set.tile_size + 5, enemy[1] * this.tile_set.tile_size - 2);
 
     }
 
@@ -689,6 +735,22 @@ Game.World.prototype = {
 
         this.candies.splice(this.candies.indexOf(candy), 1);
         this.candy_count++;
+
+      }
+
+    }
+
+    for (let index = this.enemies.length - 1; index > -1; --index) {
+
+      let enemy = this.enemies[index];
+
+      enemy.updatePosition();
+      enemy.animate();
+
+      if (enemy.collideObject(this.player)) {
+          console.log("You have died.")
+        //this.enemies.splice(this.enemies.indexOf(enemy), 1);
+        //this.enemy_count++;
 
       }
 
