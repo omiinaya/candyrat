@@ -354,9 +354,9 @@ Game.Enemy = function (x, y) {
 
   Game.MovingObject.call(this, x, y, 7, 14);
 
-  Game.Animator.call(this, Game.Enemy.prototype.frame_sets["placeholder"], 15);
+  Game.Animator.call(this, Game.Enemy.prototype.frame_sets["placeholder"], 10);
 
-
+  this.direction_x =-1;
   this.velocity_x = 0;
   this.velocity_y = 0;
 
@@ -396,8 +396,8 @@ Game.Enemy.prototype = {
 
 };
 
+Object.assign(Game.Enemy.prototype, Game.MovingObject.prototype);
 Object.assign(Game.Enemy.prototype, Game.Animator.prototype);
-Object.assign(Game.Enemy.prototype, Game.Object.prototype);
 Game.Enemy.prototype.constructor = Game.Enemy;
 
 
@@ -756,6 +756,8 @@ Game.World.prototype = {
 
     if (enemy.collideObject(this.player)) {
       console.log("You have died.")
+      console.log(currentEnemy);
+      console.log(currentPlayer);
       //this.enemies.splice(this.enemies.indexOf(enemy), 1);
       //this.enemy_count++;
 
