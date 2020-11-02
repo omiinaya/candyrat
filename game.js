@@ -150,6 +150,7 @@ Game.Collider.prototype = {
     if (object.getTop() < tile_bottom && object.getOldTop() >= tile_bottom) {
       object.setTop(tile_bottom);
       object.velocity_y = 0;
+      console.log(this);
       return true;
     }
     return false;
@@ -159,6 +160,7 @@ Game.Collider.prototype = {
     if (object.getRight() > tile_left && object.getOldRight() <= tile_left) {
       object.setRight(tile_left - 0.01);
       object.velocity_x = 0;
+      console.log(this);
       return true;
     }
     return false;
@@ -168,6 +170,7 @@ Game.Collider.prototype = {
     if (object.getLeft() < tile_right && object.getOldLeft() >= tile_right) {
       object.setLeft(tile_right);
       object.velocity_x = 0;
+      console.log(this);
       return true;
     }
     return false;
@@ -177,7 +180,7 @@ Game.Collider.prototype = {
     if (object.getBottom() > tile_top && object.getOldBottom() <= tile_top) {
       object.setBottom(tile_top - 0.01);
       object.velocity_y = 0;
-      object.jumping = false;
+      console.log(this);
       return true;
     }
     return false;
@@ -261,21 +264,23 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
 Game.MovingObject.prototype = {
 
   getOldBottom: function () { 
-    console.log(this)
+    //console.log(this)
     return this.y_old + this.height; },
   getOldCenterX: function () { 
-    console.log(this)
+    //console.log(this)
     return this.x_old + this.width * 0.5; },
   getOldCenterY: function () { 
-    console.log(this)
+    //console.log(this)
     return this.y_old + this.height * 0.5; },
   getOldLeft: function () { 
-    console.log(this)
+    //console.log(this)
     return this.x_old; },
   getOldRight: function () { 
-    console.log(this)
+    //console.log(this)
     return this.x_old + this.width; },
-  getOldTop: function () { return this.y_old; },
+  getOldTop: function () { 
+    //console.log(this)
+    return this.y_old; },
   setOldBottom: function (y) { this.y_old = y - this.height; },
   setOldCenterX: function (x) { this.x_old = x - this.width * 0.5; },
   setOldCenterY: function (y) { this.y_old = y - this.height * 0.5; },
@@ -362,7 +367,7 @@ Game.Candy.prototype.constructor = Game.Candy;
 
 Game.Enemy = function (x, y) {
 
-  Game.MovingObject.call(this, x, y, 7, 14);
+  Game.MovingObject.call(this, x, y, 12, 12);
 
   Game.Animator.call(this, Game.Enemy.prototype.frame_sets["placeholder"], 10);
 
@@ -406,6 +411,49 @@ Game.Enemy.prototype = {
     this.direction_y = 0;
     this.velocity_x = 1;
     this.velocity_y = 0;
+  },
+
+  updateAnimation: function () {
+
+    if (this.direction_x < 0 && this.direction_y === 0) {
+
+      if (this.velocity_x < -0.1) {
+        this.changeFrameSet(this.frame_sets["placeholder"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["placeholder"], "pause")
+      }
+
+    }
+
+    else if (this.direction_x > 0 && this.direction_y === 0) {
+
+      if (this.velocity_x > 0.1) {
+        this.changeFrameSet(this.frame_sets["placeholder"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["placeholder"], "pause")
+      }
+
+    }
+
+    else if (this.direction_y < 0 && this.direction_x === 0) {
+
+      if (this.velocity_y > 0.1) {
+        this.changeFrameSet(this.frame_sets["placeholder"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["placeholder"], "pause")
+      }
+    }
+
+    else if (this.direction_y > 0 && this.direction_x === 0) {
+      if (this.velocity_y < -0.1) {
+        this.changeFrameSet(this.frame_sets["placeholder"], "loop", 5)
+      } else {
+        this.changeFrameSet(this.frame_sets["placeholder"], "pause")
+      }
+    }
+
+    this.animate();
+
   },
 
   updatePosition: function () {
@@ -814,6 +862,8 @@ Game.World.prototype = {
 
 
     this.player.updateAnimation();
+
+    this.enemy.updateAnimation();
 
   }
 
