@@ -73,61 +73,61 @@ Game.Collider = function () {
     switch (value) {
 
       case 1:
-        this.collidePlatformTop(object, tile_y); break;
+          this.collidePlatformTop(object, tile_y); break;
       case 2:
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 3:
         if (
-          this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformTop(object, tile_y)) return;  
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 4:
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
       case 5:
         if (
           this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
       case 6:
         if (
           this.collidePlatformRight(object, tile_x + tile_size)) return;
-        this.collidePlatformBottom(object, tile_y + tile_size); break;
+          this.collidePlatformBottom(object, tile_y + tile_size); break;
       case 7:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 8:
-        this.collidePlatformLeft(object, tile_x); break;
+          this.collidePlatformLeft(object, tile_x); break;
       case 9:
         if (
           this.collidePlatformTop(object, tile_y)) return;
-        this.collidePlatformLeft(object, tile_x); break;
+          this.collidePlatformLeft(object, tile_x); break;
       case 10:
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 11:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 12:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformLeft(object, tile_x); break;
+          this.collidePlatformLeft(object, tile_x); break;
       case 13:
         if (
           this.collidePlatformTop(object, tile_y)) return;
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
-        this.collidePlatformLeft(object, tile_x); break;
+          this.collidePlatformLeft(object, tile_x); break;
       case 14:
         if (
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
       case 15:
         if (
           this.collidePlatformTop(object, tile_y)) return;
@@ -135,7 +135,7 @@ Game.Collider = function () {
           this.collidePlatformBottom(object, tile_y + tile_size)) return;
         if (
           this.collidePlatformLeft(object, tile_x)) return;
-        this.collidePlatformRight(object, tile_x + tile_size); break;
+          this.collidePlatformRight(object, tile_x + tile_size); break;
 
     }
 
@@ -830,23 +830,6 @@ Game.World.prototype = {
       }
 
     }
-
-
-    let enemy = currentEnemy;
-
-    enemy.updatePosition();
-    enemy.animate();
-
-    if (enemy.collideObject(this.player)) {
-      console.log("You have died.")
-      
-      console.log(this);
-      //this.enemies.splice(this.enemies.indexOf(enemy), 1);
-      //this.enemy_count++;
-
-    }
-
-
 
     for (let index = this.doors.length - 1; index > -1; --index) {
 
