@@ -799,6 +799,10 @@ Game.World.prototype = {
 
     this.collideObject(this.enemy);
 
+    if (this.player.collideObject(this.enemy)) {
+      console.log("TEST");
+    }
+
     for (let index = this.donnuts.length - 1; index > -1; --index) {
 
       let donnut = this.donnuts[index];
