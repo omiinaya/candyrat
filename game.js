@@ -260,11 +260,21 @@ Game.MovingObject = function (x, y, width, height, velocity_max = 15) {
 
 Game.MovingObject.prototype = {
 
-  getOldBottom: function () { return this.y_old + this.height; },
-  getOldCenterX: function () { return this.x_old + this.width * 0.5; },
-  getOldCenterY: function () { return this.y_old + this.height * 0.5; },
-  getOldLeft: function () { return this.x_old; },
-  getOldRight: function () { return this.x_old + this.width; },
+  getOldBottom: function () { 
+    console.log(this)
+    return this.y_old + this.height; },
+  getOldCenterX: function () { 
+    console.log(this)
+    return this.x_old + this.width * 0.5; },
+  getOldCenterY: function () { 
+    console.log(this)
+    return this.y_old + this.height * 0.5; },
+  getOldLeft: function () { 
+    console.log(this)
+    return this.x_old; },
+  getOldRight: function () { 
+    console.log(this)
+    return this.x_old + this.width; },
   getOldTop: function () { return this.y_old; },
   setOldBottom: function (y) { this.y_old = y - this.height; },
   setOldCenterX: function (x) { this.x_old = x - this.width * 0.5; },
@@ -370,7 +380,28 @@ Game.Enemy.prototype = {
     "placeholder": [24]
   },
 
-  move: function () {
+  moveUp: function () {
+    this.direction_y = 1;
+    this.direction_x = 0;
+    this.velocity_y = -1;
+    this.velocity_x = 0;
+  },
+
+  moveDown: function () {
+    this.direction_y = -1;
+    this.direction_x = 0;
+    this.velocity_y = 1;
+    this.velocity_x = 0;
+  },
+
+  moveLeft: function () {
+    this.direction_x = -1;
+    this.direction_y = 0;
+    this.velocity_x = -1;
+    this.velocity_y = 0;
+  },
+
+  moveRight: function () {
     this.direction_x = 1;
     this.direction_y = 0;
     this.velocity_x = 1;
@@ -714,7 +745,11 @@ Game.World.prototype = {
 
     this.player.updatePosition();
 
+    this.enemy.updatePosition();
+
     this.collideObject(this.player);
+
+    this.collideObject(this.enemy);
 
     for (let index = this.donnuts.length - 1; index > -1; --index) {
 
@@ -756,8 +791,8 @@ Game.World.prototype = {
 
     if (enemy.collideObject(this.player)) {
       console.log("You have died.")
-      console.log(currentEnemy);
-      console.log(currentPlayer);
+      
+      console.log(this);
       //this.enemies.splice(this.enemies.indexOf(enemy), 1);
       //this.enemy_count++;
 

@@ -111,6 +111,11 @@ window.addEventListener("load", function (event) {
     if (controller.right.active) { game.world.player.moveRight(); controller.right.active = false; }
     if (controller.up.active) { game.world.player.moveUp(); controller.up.active = false; }
     if (controller.down.active) { game.world.player.moveDown(); controller.down.active = false; }
+    if (controller.left2.active) { game.world.enemy.moveLeft(); controller.left2.active = false; }
+    if (controller.right2.active) { game.world.enemy.moveRight(); controller.right2.active = false; }
+    if (controller.up2.active) { game.world.enemy.moveUp(); controller.up2.active = false; }
+    if (controller.down2.active) { game.world.enemy.moveDown(); controller.down2.active = false; }
+
 
     game.update();
 
